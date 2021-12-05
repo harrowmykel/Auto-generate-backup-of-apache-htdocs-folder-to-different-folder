@@ -5,8 +5,8 @@ import datetime
 #this file tries to perform an automatic backup of
 #the html folder
 
-#formatted time 'May-16-0245PM-2011'
-now_time = datetime.datetime.now().strftime('%b-%d-%I%M%p-%G')
+#formatted time '16-May-2011_02-45-PM'
+now_time = datetime.datetime.now().strftime('%d-%b-%G_%I-%M-%p')
 
 # end in /
 root_folder = "./.."
@@ -17,24 +17,22 @@ dest_backup_folder = backup_folder + "/backup_" + now_time
 # create destination folder
 os.system("mkdir " + dest_backup_folder)
 
-# go to folder
+# go to html folder and run commit
 os.system("cd " + html_folder)
-
-#git commit
 os.system("git add .")
 os.system("git commit -m 'new changes at " + now_time + " ' ")
 
-#copy to backup folder 
-os.system("cp " + html_folder + "/ " + dest_backup_folder)
-os.system("cp " + html_folder + "/* " + dest_backup_folder)
-os.system("cp " + html_folder + "/.* " + dest_backup_folder)
+#copy all files and folders to backup folder 
+for name in os.listdir(html_folder):
+	if name != ".git" and name != "." and name != "..":
+		os.system("cp -r '" + html_folder + "/" + name +"' '" + dest_backup_folder+ "/" + name + "'")
 
 #delete .git folder in new backup
-os.system("rm -R " + dest_backup_folder + "/.git")
+#os.system("rm -R " + dest_backup_folder + "/.git")
 
 #zip folder 
 os.system("zip -r " + dest_backup_folder + ".zip " + dest_backup_folder)
 
 
 #delete new backup folder
-os.system("rm -R " + dest_backup_folder + "/.git")
+os.system("rm -R " + dest_backup_folder)
