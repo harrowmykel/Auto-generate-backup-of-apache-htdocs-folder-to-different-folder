@@ -6,7 +6,9 @@ import datetime
 #the html folder
 
 #formatted time '16-May-2011_02-45-PM'
-now_time = datetime.datetime.now().strftime('%d-%b-%G_%I-%M-%p')
+# now_time = datetime.datetime.now().strftime('%d-%b-%G_%I-%M-%p')
+#formatted time '2021-01-26-16:50:03'
+now_time = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 
 # end in /
 root_folder = "./.."
